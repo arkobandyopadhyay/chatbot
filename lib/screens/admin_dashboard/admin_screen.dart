@@ -1,4 +1,4 @@
-import 'package:chatbot/SignInScreen.dart';
+import 'package:chatbot/screens/admin_login/SignInScreen.dart';
 import 'package:flutter/material.dart';
 
 class AdminScreen extends StatelessWidget {

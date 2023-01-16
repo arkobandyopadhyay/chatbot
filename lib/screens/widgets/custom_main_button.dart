@@ -1,4 +1,4 @@
-import 'package:chatbot/utils.dart';
+import 'package:chatbot/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class CustomMainButton extends StatelessWidget {
@@ -19,9 +19,9 @@ class CustomMainButton extends StatelessWidget {
     Size screenSize = Utils().getScreenSize();
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          backgroundColor: color,
+          primary: color,
           fixedSize: Size(
-            screenSize.width * 0.6,
+            screenSize.width * 0.6, 
             40,
           )),
       onPressed: onPressed,
