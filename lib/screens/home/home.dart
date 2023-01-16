@@ -1,7 +1,9 @@
-import 'package:chatbot/SignInScreen2.dart';
+import 'package:chatbot/screens/login_user/SignInScreen2.dart';
 import 'package:flutter/material.dart';
-import 'package:chatbot/messages.dart';
+
 import 'package:dialog_flowtter/dialog_flowtter.dart';
+
+import '../chatbot/Messages.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
