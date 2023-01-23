@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('JarvisBot'),
+        title: Text('AI ChatBot'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(

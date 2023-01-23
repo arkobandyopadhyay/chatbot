@@ -1,5 +1,8 @@
+import 'package:chatbot/model/complaint_model.dart';
 import 'package:chatbot/screens/admin_login/SignInScreen.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/complaint_list_widget.dart';
 
 class AdminScreen extends StatelessWidget {
   const AdminScreen({super.key});
@@ -8,7 +11,7 @@ class AdminScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Page'),
+        title: Center(child: Text('Complaints')),
         actions: <Widget>[
           IconButton(
               onPressed: () {
@@ -21,9 +24,22 @@ class AdminScreen extends StatelessWidget {
               icon: Icon(Icons.logout))
         ],
       ),
-      body: Center(
-        child: Text('App Under construction'),
+      body:Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView.builder(
+          physics:BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          itemCount: ComplaintModel.items.length,
+          itemBuilder: (context, index) {
+            return ItemWidget(
+              item: ComplaintModel.items[index],
+            );
+          },
+        ),
       ),
+     
     );
+  
+    
+   
   }
 }
