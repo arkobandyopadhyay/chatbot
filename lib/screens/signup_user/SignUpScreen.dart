@@ -70,7 +70,7 @@ class SignupScreen extends StatelessWidget {
                           ),
                         ]),
                     child: Form(
-                      key:_formKey,
+                      key: _formKey,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -97,11 +97,14 @@ class SignupScreen extends StatelessWidget {
                               ),
                               child: TextFormField(
                                 controller: emailController,
-                                validator:(String? email) => email!.isEmpty ? "" : null,
-                                style: TextStyle(fontSize: 15,color:Colors.black),
+                                validator: (String? email) =>
+                                    email!.isEmpty ? "" : null,
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black),
                                 decoration: const InputDecoration(
                                   hintText: "email id",
-                                  hintStyle: TextStyle(fontSize: 15,color:Colors.black38),
+                                  hintStyle: TextStyle(
+                                      fontSize: 15, color: Colors.black38),
                                   border: InputBorder.none,
                                   prefixIcon: Icon(
                                     Icons.abc,
@@ -133,12 +136,15 @@ class SignupScreen extends StatelessWidget {
                                 border: Border.all(color: Colors.black),
                               ),
                               child: TextFormField(
-                                style: TextStyle(fontSize: 15,color:Colors.black),
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black),
                                 controller: passwordController,
-                                validator:(String? email) => email!.isEmpty ? "" : null,
+                                validator: (String? email) =>
+                                    email!.isEmpty ? "" : null,
                                 decoration: const InputDecoration(
                                   hintText: "Type a password",
-                                  hintStyle: TextStyle(fontSize: 15,color:Colors.black38),
+                                  hintStyle: TextStyle(
+                                      fontSize: 15, color: Colors.black38),
                                   border: InputBorder.none,
                                   prefixIcon: Icon(
                                     Icons.abc,
@@ -172,12 +178,15 @@ class SignupScreen extends StatelessWidget {
                                 border: Border.all(color: Colors.black),
                               ),
                               child: TextFormField(
-                                style: TextStyle(fontSize: 15,color:Colors.black),
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black),
                                 controller: roomController,
-                                validator:(String? email) => email!.isEmpty ? "" : null,
+                                validator: (String? email) =>
+                                    email!.isEmpty ? "" : null,
                                 decoration: const InputDecoration(
                                   hintText: "write your room no",
-                                  hintStyle: TextStyle(fontSize: 15,color:Colors.black38),
+                                  hintStyle: TextStyle(
+                                      fontSize: 15, color: Colors.black38),
                                   border: InputBorder.none,
                                   prefixIcon: Icon(
                                     Icons.abc,
@@ -227,7 +236,7 @@ class SignupScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: ((context) {
-                            return const SignInScreen2();
+                            return SignInScreen2();
                           })),
                         );
                       },
@@ -244,7 +253,6 @@ class SignupScreen extends StatelessWidget {
   }
 
   Widget _buildLoading(BuildContext context) {
-    
     return Center(child: CircularProgressIndicator());
   }
 

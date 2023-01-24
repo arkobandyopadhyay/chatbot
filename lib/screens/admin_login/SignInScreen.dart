@@ -1,13 +1,9 @@
 import 'package:chatbot/screens/admin_dashboard/admin_screen.dart';
 import 'package:chatbot/screens/admin_login/cubit/admin_login_cubit.dart';
-import 'package:chatbot/screens/signup_user/SignUpScreen.dart';
 import 'package:chatbot/screens/widgets/custom_main_button.dart';
-import 'package:chatbot/screens/home/home.dart';
 import 'package:chatbot/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../chatbot/Messages.dart';
 import '../login_user/SignInScreen2.dart';
 import '../login_user/cubit/login_user_cubit.dart';
 import '../login_user/login_user_repository.dart';

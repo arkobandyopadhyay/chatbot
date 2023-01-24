@@ -5,8 +5,6 @@ import 'package:chatbot/screens/home/home.dart';
 import 'package:chatbot/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../chatbot/Messages.dart';
 import '../signup_user/cubit/signup_user_cubit.dart';
 import '../signup_user/signup_repository.dart';
 

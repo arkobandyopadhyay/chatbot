@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'JarvisBot',
+      title: 'Complaint Bot',
       theme: ThemeData(brightness: Brightness.dark),
       home: BlocProvider(
               create: (_) => LoginAdminCubit(APILoginAdminRepository()),

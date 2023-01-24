@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('JarvisBot'),
+        title: Text('Complaint Bot'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(
@@ -42,6 +42,12 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/chatbot_image.jpg"),
+            fit: BoxFit.contain,
+            ),
+        ),
         child: Column(
           children: [
             Expanded(child: MessagesScreen(messages: messages)),
