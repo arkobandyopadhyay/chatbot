@@ -1,8 +1,6 @@
 import 'package:chatbot/screens/login_user/SignInScreen2.dart';
 import 'package:flutter/material.dart';
-
 import 'package:dialog_flowtter/dialog_flowtter.dart';
-
 import '../chatbot/Messages.dart';
 
 class Home extends StatefulWidget {
@@ -45,7 +43,7 @@ class _HomeState extends State<Home> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/chatbot_image.jpg"),
-            fit: BoxFit.contain,
+            fit: BoxFit.cover,
             ),
         ),
         child: Column(
@@ -53,12 +51,16 @@ class _HomeState extends State<Home> {
             Expanded(child: MessagesScreen(messages: messages)),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              color: Colors.deepPurple,
+              color: Colors.black26,
               child: Row(
                 children: [
                   Expanded(
                       child: TextField(
                     controller: _controller,
+                    decoration:  new InputDecoration.collapsed(
+                      hintText: 'Start typing your Complaint...',
+                      fillColor: Colors.white,
+                    ),
                     style: TextStyle(color: Colors.white),
                   )),
                   IconButton(
