@@ -4,6 +4,8 @@ import 'package:chatbot/screens/widgets/custom_main_button.dart';
 import 'package:chatbot/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../admin_dashboard/admin_repository.dart';
+import '../admin_dashboard/cubit/admin_cubit.dart';
 import '../login_user/SignInScreen2.dart';
 import '../login_user/cubit/login_user_cubit.dart';
 import '../login_user/login_user_repository.dart';
@@ -28,13 +30,13 @@ class _SignInScreenState extends State<SignInScreen> {
           if (state is LoginAdminSuccess) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text("Login Successful")));
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: ((context) {
-              return const AdminScreen();
-            })));
-          } else if (state is LoginAdminError) {
+           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>BlocProvider(
+              create: (_) => AdminCubit(APIComplaintRepository()),
+              child: AdminScreen()),));
+            }
+           else if (state is LoginAdminError) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.message!)));
+                .showSnackBar(SnackBar(content: Text("error")));
           }
         },
         builder: (context, state) {

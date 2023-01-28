@@ -1,7 +1,13 @@
-import 'package:chatbot/screens/login_user/SignInScreen2.dart';
+import 'package:chatbot/core/utils/shared.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
-import '../chatbot/Messages.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../admin_login/SignInScreen.dart';
+import '../admin_login/cubit/admin_login_cubit.dart';
+import '../admin_login/login_admin_repository.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -31,10 +37,10 @@ class _HomeState extends State<Home> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SignInScreen2()));
+
+              _onClick();
+
+              
             },
           ),
         ],
@@ -89,13 +95,36 @@ class _HomeState extends State<Home> {
       DetectIntentResponse response = await dialogFlowtter.detectIntent(
           queryInput: QueryInput(text: TextInput(text: text)));
       if (response.message == null) return;
+      else {
+         final CollectionReference _collectionReference=FirebaseFirestore.instance.collection("complaints");
+        await _collectionReference.add({"room":UserSimplePreferences.getRoom(),"type":response.message!.text!.text![0].substring(25),"isDone1":false,"isDone2":false,"image":"assets/"+ response.message!.text!.text![0].substring(25)+".jpg"});
+
+      }
       setState(() {
+
         addMessage(response.message!);
+        
+       
+        
+   
+  
       });
     }
   }
 
   addMessage(Message message, [bool isUserMessage = false]) {
     messages.add({'message': message, 'isUserMessage': isUserMessage});
+  }
+
+  Future<void> _onClick() async {
+   
+        UserSimplePreferences.erase();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Logged Out Successfuly")));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>BlocProvider(
+              create: (_) => LoginAdminCubit(APILoginAdminRepository()),
+              child: SignInScreen()),));
+        
+    
   }
 }

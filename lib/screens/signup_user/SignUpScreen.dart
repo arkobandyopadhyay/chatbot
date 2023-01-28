@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../home/home.dart';
+import '../login_user/cubit/login_user_cubit.dart';
+import '../login_user/login_user_repository.dart';
 import '../widgets/custom_main_button.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -233,12 +235,12 @@ class SignupScreen extends StatelessWidget {
                       color: Colors.grey,
                       isLoading: false,
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: ((context) {
-                            return SignInScreen2();
-                          })),
-                        );
+                         Navigator.of(context).push(MaterialPageRoute(
+                              builder: ((context) => BlocProvider(
+                                  create: (_) =>
+                                      LoginUserCubit(APILoginRepository()),
+                                  child: SignInScreen2()))));
+                     
                       },
                       child: const Text(
                         "Back",

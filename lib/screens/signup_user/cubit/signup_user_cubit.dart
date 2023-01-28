@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:chatbot/core/utils/shared.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import '../../../core/utils/errors.dart';
@@ -27,3 +28,4 @@ class SignupCubit extends Cubit<SignupState> {
     }
   }
 }
+
