@@ -9,8 +9,6 @@ import '../admin_login/SignInScreen.dart';
 import '../admin_login/cubit/admin_login_cubit.dart';
 import '../admin_login/login_admin_repository.dart';
 
-
-
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -49,7 +47,7 @@ class _HomeState extends State<Home> {
           image: DecorationImage(
             image: AssetImage("assets/chatbot_image.jpg"),
             fit: BoxFit.cover,
-            ),
+          ),
         ),
         child: Column(
           children: [
@@ -62,7 +60,7 @@ class _HomeState extends State<Home> {
                   Expanded(
                       child: TextField(
                     controller: _controller,
-                    decoration:  new InputDecoration.collapsed(
+                    decoration: new InputDecoration.collapsed(
                       hintText: 'Start typing your Complaint...',
                       fillColor: Colors.white,
                     ),
@@ -82,6 +80,7 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
   sendMessage(String text) async {
     if (text.isEmpty) {
       print('Message is empty');
@@ -91,26 +90,41 @@ class _HomeState extends State<Home> {
       });
       DetectIntentResponse response = await dialogFlowtter.detectIntent(
           queryInput: QueryInput(text: TextInput(text: text)));
-      if (response.message == null) return;
-      else {
-         final CollectionReference _collectionReference=FirebaseFirestore.instance.collection("complaints");
-        await _collectionReference.add({"room":UserSimplePreferences.getRoom(),"type":response.message!.text!.text![0].substring(25),"isDone1":false,"isDone2":false,"image":"assets/"+ response.message!.text!.text![0].substring(25)+".jpg"});
+      if (response.message == null)
+        return;
+      String textvalue = response.message!.text!.text![0].substring(25);
+      if (textvalue == "Electric Supply" ||textvalue == "room clean" ||textvalue == "water supply" ||textvalue == "food quality" ||textvalue == "lift problem" ||textvalue == "broken furniture" ||textvalue == "washroom" ||textvalue == "Lost Item"){
+        final CollectionReference _collectionReference =
+            FirebaseFirestore.instance.collection("complaints");
+        String textvalue = response.message!.text!.text![0].substring(25);
+        await _collectionReference.add({
+            "room": UserSimplePreferences.getRoom(),
+            "type": textvalue,
+            "isDone1": false,
+            "isDone2": false,
+            "image": "assets/" +
+                textvalue +
+                ".jpg"
+          });
       }
       setState(() {
         addMessage(response.message!);
       });
     }
   }
+
   addMessage(Message message, [bool isUserMessage = false]) {
     messages.add({'message': message, 'isUserMessage': isUserMessage});
   }
 
   Future<void> _onClick() async {
-        UserSimplePreferences.erase();
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Logged Out Successfuly")));
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>BlocProvider(
-              create: (_) => LoginAdminCubit(APILoginAdminRepository()),
-              child: SignInScreen()),));
+    UserSimplePreferences.erase();
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Logged Out Successfuly")));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => BlocProvider(
+          create: (_) => LoginAdminCubit(APILoginAdminRepository()),
+          child: SignInScreen()),
+    ));
   }
 }
