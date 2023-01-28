@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Complaint Bot',
+      title: 'AI ChatBot',
       theme: ThemeData(brightness: Brightness.dark),
       home: BlocProvider(
               create: (_) => SplashCubit(APISplashRepository()),

@@ -1,14 +1,12 @@
 import 'package:chatbot/core/utils/shared.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../admin_login/SignInScreen.dart';
 import '../admin_login/cubit/admin_login_cubit.dart';
 import '../admin_login/login_admin_repository.dart';
-import '../chatbot/Messages.dart';
 
 
 class Home extends StatefulWidget {
@@ -51,7 +49,7 @@ class _HomeState extends State<Home> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/chatbot_image.jpg"),
-            fit: BoxFit.contain,
+            fit: BoxFit.cover,
             ),
         ),
         child: Column(
@@ -59,12 +57,16 @@ class _HomeState extends State<Home> {
             Expanded(child: MessagesScreen(messages: messages)),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              color: Colors.deepPurple,
+              color: Colors.black26,
               child: Row(
                 children: [
                   Expanded(
                       child: TextField(
                     controller: _controller,
+                    decoration:  new InputDecoration.collapsed(
+                      hintText: 'Start typing your Complaint...',
+                      fillColor: Colors.white,
+                    ),
                     style: TextStyle(color: Colors.white),
                   )),
                   IconButton(

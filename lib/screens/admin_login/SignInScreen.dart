@@ -164,19 +164,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 25,
+                    height: 50,
                   ),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                        child: Text(
-                      "Forgot Password?",
-                      style: TextStyle(
-                          color: Colors.deepPurpleAccent,
-                          fontWeight: FontWeight.w500),
-                    )),
-                  ),
-                  const SizedBox(height: 25),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
