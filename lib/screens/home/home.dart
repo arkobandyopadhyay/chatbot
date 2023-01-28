@@ -1,7 +1,5 @@
 import 'package:chatbot/core/utils/shared.dart';
-import 'package:chatbot/screens/login_user/SignInScreen2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dialog_flowtter/dialog_flowtter.dart';
@@ -11,8 +9,7 @@ import '../admin_login/SignInScreen.dart';
 import '../admin_login/cubit/admin_login_cubit.dart';
 import '../admin_login/login_admin_repository.dart';
 import '../chatbot/Messages.dart';
-import '../login_user/cubit/login_user_cubit.dart';
-import '../login_user/login_user_repository.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
