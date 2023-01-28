@@ -1,8 +1,4 @@
-import 'package:chatbot/core/utils/shared.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-
 class MessagesScreen extends StatefulWidget {
   final List messages;
   const MessagesScreen({Key? key, required this.messages}) : super(key: key);
@@ -41,9 +37,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                           ? Colors.grey.shade800
                           : Colors.grey.shade900.withOpacity(0.8)),
                   constraints: BoxConstraints(maxWidth: w * 2 / 3),
-                  child: widget.messages[index]['isUserMessage'] == false
-                      ? function(widget.messages[index]['message'].text.text[0])
-                      : Text(widget.messages[index]['message'].text.text[0]),
+                  child:Text(widget.messages[index]['message'].text.text[0]),
                 ),
               ],
             ),
@@ -52,22 +46,4 @@ class _MessagesScreenState extends State<MessagesScreen> {
         separatorBuilder: (_, i) => Padding(padding: EdgeInsets.only(top: 10)),
         itemCount: widget.messages.length);
   }
-}
-
-Widget function(String text) {
-  return Column(
-    children: [
-      if (text.substring(25) == "Electric Supply") ...[
-        Text(text),
-      ]else if(text.substring(25)=="food quality")...[
-        Text(text),
-      ]else if(text.substring(25)=="room clean")...[
-        Text(text),
-      ]else if(text.substring(25)=="water supply")...[
-        Text(text),
-      ] else ...[
-        Text(text)
-      ]
-    ],
-  );
 }
