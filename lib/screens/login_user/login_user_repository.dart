@@ -4,6 +4,7 @@ import 'dart:math';
 // import 'package:ecellapp/core/res/strings.dart';
 // import 'package:ecellapp/core/utils/injection.dart';
 // import 'package:ecellapp/core/utils/logger.dart';
+import 'package:chatbot/core/utils/shared.dart';
 import 'package:http/http.dart' as http;
 
 import '../../core/utils/errors.dart';
@@ -28,6 +29,11 @@ class APILoginRepository implements LoginRepository {
         "email": email,
         "password": password,
       });
+
+      UserSimplePreferences.setEmail(json.decode(response.body)['email']);
+      UserSimplePreferences.setPass(json.decode(response.body)['password']);
+      UserSimplePreferences.setRoom(json.decode(response.body)['room']);
+
       print("response:" + response.body);
     } catch (e) {
       print("hi");

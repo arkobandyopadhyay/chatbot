@@ -1,3 +1,4 @@
+import 'package:chatbot/core/utils/shared.dart';
 import 'package:chatbot/screens/login_user/cubit/login_user_cubit.dart';
 import 'package:chatbot/screens/signup_user/SignUpScreen.dart';
 import 'package:chatbot/screens/widgets/custom_main_button.dart';
@@ -28,6 +29,7 @@ class _SignInScreen2State extends State<SignInScreen2> {
           if (state is LoginSuccess) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text("Login Successful")));
+            print(UserSimplePreferences.getEmail());
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: ((context) {
               return const Home();
