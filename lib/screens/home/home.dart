@@ -94,12 +94,15 @@ class _HomeState extends State<Home> {
         return;
       String textvalue = response.message!.text!.text![0].substring(25);
       if (textvalue == "Electric Supply" ||textvalue == "room clean" ||textvalue == "water supply" ||textvalue == "food quality" ||textvalue == "lift problem" ||textvalue == "broken furniture" ||textvalue == "washroom" ||textvalue == "Lost Item"){
-        final CollectionReference _collectionReference =
+        // String? id = UserSimplePreferences.getId();
+        final CollectionReference<Map<String, dynamic>> _collectionReference =
             FirebaseFirestore.instance.collection("complaints");
         String textvalue = response.message!.text!.text![0].substring(25);
-        await _collectionReference.add({
+        String id=DateTime.now().toString();
+        await _collectionReference.doc(id).set({
             "room": UserSimplePreferences.getRoom(),
             "type": textvalue,
+            "time":id,
             "isDone1": false,
             "isDone2": false,
             "image": "assets/" +

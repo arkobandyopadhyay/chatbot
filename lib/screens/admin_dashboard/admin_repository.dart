@@ -25,7 +25,7 @@ class APIComplaintRepository extends ComplaintRepository {
       await db.collection("complaints").get().then((value) {
         value.docs.forEach((element) {
           try {
-            print(element);
+            print(element.data());
             complaintList.add(Item.fromFirestore(element));
           } on StateError catch (e) {
             print("state error");

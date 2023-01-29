@@ -30,6 +30,7 @@ class APISignupRepository implements SignupRepository {
       UserSimplePreferences.setEmail(email);
       UserSimplePreferences.setPass(password);
       UserSimplePreferences.setType("user");
+      UserSimplePreferences.setId(json.decode(response.body)['_id']);
 
       print("response:" + response.body);
     } catch (e) {

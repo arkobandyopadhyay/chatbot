@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/complaint_model.dart';
@@ -34,7 +35,12 @@ class _ItemWidgetState extends State<ItemWidget> {
             subtitle: Text("Room No: ${widget.item.roomno}"),
             trailing: Checkbox(
                 value: isChecked,
-                onChanged: (bool? value) {
+                onChanged: (bool? value) async{
+
+            
+            await FirebaseFirestore.instance.collection("complaints").doc(widget.item.time).update({"isDone1":value});
+
+                  // widget.item.isDone1=true;
                   setState(() {
                     isChecked = value!;
                   });
