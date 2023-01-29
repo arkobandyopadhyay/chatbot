@@ -33,6 +33,7 @@ class APILoginRepository implements LoginRepository {
       UserSimplePreferences.setEmail(json.decode(response.body)['email']);
       UserSimplePreferences.setPass(json.decode(response.body)['password']);
       UserSimplePreferences.setRoom(json.decode(response.body)['room']);
+      UserSimplePreferences.setId(json.decode(response.body)['_id']);
 
       print("response:" + response.body);
     } catch (e) {

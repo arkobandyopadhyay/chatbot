@@ -89,9 +89,11 @@ class Item {
   final String roomno;
    bool isDone1;
    bool isDone2;
+
+   final String time;
    final String image;
 
-  Item({required this.type, required this.roomno,required this.isDone1, required this.isDone2, required this.image});
+  Item({required this.type, required this.roomno,required this.isDone1, required this.isDone2,required this.time, required this.image});
 
   factory Item.fromFirestore(QueryDocumentSnapshot<Map<String, dynamic>> data) {
     return Item(
@@ -99,6 +101,7 @@ class Item {
       type: data["type"],
       isDone1: data["isDone1"],
       isDone2: data["isDone2"],
+      time: data["time"],
       image: data['image'],
     );
   }

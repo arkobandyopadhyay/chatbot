@@ -6,6 +6,7 @@ class UserSimplePreferences {
     static const _keyEmail= 'email';
     static const _keyPass = 'pass';
     static const _keyType = 'type';
+    static const _keyId = 'id';
 
 
   static Future init() async =>
@@ -34,6 +35,10 @@ class UserSimplePreferences {
 
   static String? getType() => _preferences?.getString(_keyType);
 
+  static Future setId(String id) async =>
+      await _preferences?.setString(_keyId,id);
+
+  static String? getId() => _preferences?.getString(_keyId);
   
   static void erase()async =>await _preferences?.clear();
 
