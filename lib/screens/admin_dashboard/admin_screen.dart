@@ -41,21 +41,31 @@ class _AdminScreenState extends State<AdminScreen> {
               icon: Icon(Icons.logout))
         ],
       ),
-       body: Container(
-          height: MediaQuery.of(context).size.height,
-          child: BlocBuilder<AdminCubit, AdminState>(
-            builder: (context, state) {
-              if (state is AdminInitial)
-                return _buildLoading(context);
-              else if (state is AdminSuccess)
-                return _buildSuccess(context, state.AdminList);
-              else if (state is AdminLoading)
-                return _buildLoading(context);
-              else
-                return Text("something went wrong");
-            },
+       body: RefreshIndicator(
+         onRefresh: ()async {
+           setState(() {
+             complaintList.clear();
+             print(complaintList);
+             _getAllComplaints(context);
+           });
+           
+           },
+         child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: BlocBuilder<AdminCubit, AdminState>(
+              builder: (context, state) {
+                if (state is AdminInitial)
+                  return _buildLoading(context);
+                else if (state is AdminSuccess)
+                  return _buildSuccess(context, state.AdminList);
+                else if (state is AdminLoading)
+                  return _buildLoading(context);
+                else
+                  return Text("something went wrong");
+              },
+            ),
           ),
-        ),
+       ),
         );
    
   
@@ -81,6 +91,7 @@ class _AdminScreenState extends State<AdminScreen> {
           itemCount: ComplaintList.length,
           itemBuilder: (context, index) {
             return ItemWidget(
+              // print(ComplaintList[index]);
               item: ComplaintList[index],
             );
           },

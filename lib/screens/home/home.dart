@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../admin_dashboard/cubit/admin_cubit.dart';
 import '../admin_login/SignInScreen.dart';
 import '../admin_login/cubit/admin_login_cubit.dart';
 import '../admin_login/login_admin_repository.dart';
+import 'drawer/Drawer_repository.dart';
+import 'drawer/cubit/drawer_cubit.dart';
+import 'drawer_header.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -42,6 +46,19 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
+      drawer: Drawer(
+        child: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: [
+                BlocProvider(
+              create: (_) => DrawerCubit(APIDrawerRepository()),
+              child: HeaderDrawer()),
+                // MyDrawerList(),
+              ],
+            ),
+          ),
+        ),),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -131,3 +148,5 @@ class _HomeState extends State<Home> {
     ));
   }
 }
+
+
