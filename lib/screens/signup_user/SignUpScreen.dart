@@ -13,6 +13,11 @@ class SignupScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController roomController = TextEditingController();
+  void dispose() {
+    emailController;
+    passwordController;
+    roomController;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -235,12 +240,11 @@ class SignupScreen extends StatelessWidget {
                       color: Colors.grey,
                       isLoading: false,
                       onPressed: () {
-                         Navigator.of(context).push(MaterialPageRoute(
-                              builder: ((context) => BlocProvider(
-                                  create: (_) =>
-                                      LoginUserCubit(APILoginRepository()),
-                                  child: SignInScreen2()))));
-                     
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: ((context) => BlocProvider(
+                                create: (_) =>
+                                    LoginUserCubit(APILoginRepository()),
+                                child: SignInScreen2()))));
                       },
                       child: const Text(
                         "Back",

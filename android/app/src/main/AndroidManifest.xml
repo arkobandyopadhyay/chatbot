@@ -1,5 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.chatbot">
+<queries>
+   <intent>
+      <action android:name="android.intent.action"/>
+      <data android:scheme="tel" />
+    </intent>
+</queries>
    <application
         android:label="chatbot"
         android:name="${applicationName}"

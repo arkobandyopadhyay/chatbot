@@ -4,6 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../admin_dashboard/cubit/admin_cubit.dart';
 import '../admin_login/SignInScreen.dart';
@@ -52,13 +55,14 @@ class _HomeState extends State<Home> {
             child: Column(
               children: [
                 BlocProvider(
-              create: (_) => DrawerCubit(APIDrawerRepository()),
-              child: HeaderDrawer()),
+                    create: (_) => DrawerCubit(APIDrawerRepository()),
+                    child: HeaderDrawer()),
                 // MyDrawerList(),
               ],
             ),
           ),
-        ),),
+        ),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -107,25 +111,33 @@ class _HomeState extends State<Home> {
       });
       DetectIntentResponse response = await dialogFlowtter.detectIntent(
           queryInput: QueryInput(text: TextInput(text: text)));
-      if (response.message == null)
-        return;
+      if (response.message == null) return;
       String textvalue = response.message!.text!.text![0].substring(25);
-      if (textvalue == "Electric Supply" ||textvalue == "room clean" ||textvalue == "water supply" ||textvalue == "food quality" ||textvalue == "lift problem" ||textvalue == "broken furniture" ||textvalue == "washroom" ||textvalue == "Lost Item"){
+      if (textvalue == "emergency"||textvalue=="ambulance"||textvalue=="call caretaker") {
+        //return FlutterPhoneDirectCaller.callNumber('+918770904101');
+        launchUrlString('tel: 8770904101');
+      }
+      if (textvalue == "Electric Supply" ||
+          textvalue == "room clean" ||
+          textvalue == "water supply" ||
+          textvalue == "food quality" ||
+          textvalue == "lift problem" ||
+          textvalue == "broken furniture" ||
+          textvalue == "washroom" ||
+          textvalue == "Lost Item") {
         // String? id = UserSimplePreferences.getId();
         final CollectionReference<Map<String, dynamic>> _collectionReference =
             FirebaseFirestore.instance.collection("complaints");
         String textvalue = response.message!.text!.text![0].substring(25);
-        String id=DateTime.now().toString();
+        String id = DateTime.now().toString();
         await _collectionReference.doc(id).set({
-            "room": UserSimplePreferences.getRoom(),
-            "type": textvalue,
-            "time":id,
-            "isDone1": false,
-            "isDone2": false,
-            "image": "assets/" +
-                textvalue +
-                ".jpg"
-          });
+          "room": UserSimplePreferences.getRoom(),
+          "type": textvalue,
+          "time": id,
+          "isDone1": false,
+          "isDone2": false,
+          "image": "assets/" + textvalue + ".jpg"
+        });
       }
       setState(() {
         addMessage(response.message!);
@@ -148,5 +160,3 @@ class _HomeState extends State<Home> {
     ));
   }
 }
-
-
