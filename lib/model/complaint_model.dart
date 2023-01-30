@@ -92,6 +92,7 @@ class Item {
 
    final String time;
    final String image;
+  //  final String time;
 
   Item({required this.type, required this.roomno,required this.isDone1, required this.isDone2,required this.time, required this.image});
 
@@ -103,6 +104,7 @@ class Item {
       isDone2: data["isDone2"],
       time: data["time"],
       image: data['image'],
+      // date:data['date'],
     );
   }
 }
