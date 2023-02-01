@@ -6,12 +6,20 @@ import 'package:chatbot/screens/splash/cubit/splash_cubit.dart';
 import 'package:chatbot/screens/splash/splash_repository.dart';
 import 'package:chatbot/screens/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+
+Future<void> backgroundHandler(RemoteMessage message) async {
+  	print(message.data.toString());
+ 	print(message.notification!.title);
+	}
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   await UserSimplePreferences.init();
   runApp(MyApp());
 
