@@ -116,8 +116,9 @@ class _HomeState extends State<Home> {
 // =======
              BlocProvider(
               create: (_) => MessageCubit(APIMessageRepository()),
-              child: UserMessageScreen())
+              child: UserMessageScreen()),
 // >>>>>>> fbd0970e98c90977037bda823214cb1b99b79437
+           UserCallScreen(),
         ],
       ),
     ),);
