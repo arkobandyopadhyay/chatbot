@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 
 import '../../core/utils/errors.dart';
@@ -17,6 +18,15 @@ class APISignupRepository implements SignupRepository {
   final String classTag = "APILoginRepository";
   
   @override
+  Future<String> getDeviceTokenToSendNotification() async {
+    		final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+    		final token = await _fcm.getToken();
+    		String deviceTokenToSendPushNotification = token.toString();
+    		print("Token Value $deviceTokenToSendPushNotification");
+        return deviceTokenToSendPushNotification;
+  	}
+
+
   Future<void> signup(String email, String password, String room) async {
 
     UserCredential? response;
@@ -48,6 +58,12 @@ class APISignupRepository implements SignupRepository {
           "email": email,
           "password": password,
           "room":room,
+
+        });
+        String t=await getDeviceTokenToSendNotification();
+        await FirebaseFirestore.instance.collection("tokens").doc(id).set({
+          "token": t,
+          
 
         });
         

@@ -7,17 +7,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../admin_dashboard/cubit/admin_cubit.dart';
 import '../admin_login/SignInScreen.dart';
 import '../admin_login/cubit/admin_login_cubit.dart';
 import '../admin_login/login_admin_repository.dart';
 import 'drawer/Drawer_repository.dart';
 import 'drawer/cubit/drawer_cubit.dart';
 import 'drawer_header.dart';
+import 'messages/cubit/messages_cubit.dart';
+import 'messages/message_repository.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -110,8 +110,14 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              UserMessageScreen(),
-              UserCallScreen(),
+// <<<<<<< HEAD
+//               UserMessageScreen(),
+//               UserCallScreen(),
+// =======
+             BlocProvider(
+              create: (_) => MessageCubit(APIMessageRepository()),
+              child: UserMessageScreen())
+// >>>>>>> fbd0970e98c90977037bda823214cb1b99b79437
         ],
       ),
     ),);
