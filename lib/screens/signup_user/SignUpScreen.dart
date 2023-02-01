@@ -13,10 +13,12 @@ class SignupScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController roomController = TextEditingController();
+  final TextEditingController hostelController = TextEditingController();
   void dispose() {
     emailController;
     passwordController;
     roomController;
+    hostelController;
   }
 
   @override
@@ -205,6 +207,48 @@ class SignupScreen extends StatelessWidget {
                             const SizedBox(
                               height: 20,
                             ),
+                            Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 3),
+                                child: const Text(
+                                  "Enter your Hostel",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.black),
+                                )),
+                            const SizedBox(height: 5),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 2, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: const Color(0xfff5f8fd),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                                border: Border.all(color: Colors.black),
+                              ),
+                              child: TextFormField(
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black),
+                                controller: hostelController,
+                                validator: (String? email) =>
+                                    email!.isEmpty ? "" : null,
+                                decoration: const InputDecoration(
+                                  hintText: "write your hostel name in captial like A,B",
+                                  hintStyle: TextStyle(
+                                      fontSize: 15, color: Colors.black38),
+                                  border: InputBorder.none,
+                                  prefixIcon: Icon(
+                                    Icons.abc,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                           ]),
                     ),
                   ),
@@ -236,23 +280,6 @@ class SignupScreen extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  CustomMainButton(
-                      color: Colors.grey,
-                      isLoading: false,
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: ((context) => BlocProvider(
-                                create: (_) =>
-                                    LoginUserCubit(APILoginRepository()),
-                                child: SignInScreen2()))));
-                      },
-                      child: const Text(
-                        "Back",
-                        style: TextStyle(
-                            fontSize: 15,
-                            letterSpacing: 0.6,
-                            color: Colors.black),
-                      )),
                 ])),
           ),
         ));
