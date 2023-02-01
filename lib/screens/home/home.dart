@@ -1,21 +1,22 @@
 import 'package:chatbot/core/utils/shared.dart';
 import 'package:chatbot/screens/chatbot/Messages.dart';
+import 'package:chatbot/screens/home/user_message_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../admin_dashboard/cubit/admin_cubit.dart';
 import '../admin_login/SignInScreen.dart';
 import '../admin_login/cubit/admin_login_cubit.dart';
 import '../admin_login/login_admin_repository.dart';
 import 'drawer/Drawer_repository.dart';
 import 'drawer/cubit/drawer_cubit.dart';
 import 'drawer_header.dart';
+import 'messages/cubit/messages_cubit.dart';
+import 'messages/message_repository.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -35,7 +36,9 @@ class _HomeState extends State<Home> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
       appBar: AppBar(
         title: Text('AI ChatBot'),
         actions: <Widget>[
@@ -49,6 +52,10 @@ class _HomeState extends State<Home> {
             },
           ),
         ],
+        bottom: const TabBar(tabs: [
+          Tab(icon: Icon(Icons.home),),
+          Tab(icon: Icon(Icons.message),),
+        ]),
       ),
       drawer: Drawer(
         child: SingleChildScrollView(
@@ -64,43 +71,50 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/chatbot_image.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          children: [
-            Expanded(child: MessagesScreen(messages: messages)),
+      body: TabBarView(
+        children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              color: Colors.black26,
-              child: Row(
-                children: [
-                  Expanded(
-                      child: TextField(
-                    controller: _controller,
-                    decoration: new InputDecoration.collapsed(
-                      hintText: 'Start typing your Complaint...',
-                      fillColor: Colors.white,
-                    ),
-                    style: TextStyle(color: Colors.white),
-                  )),
-                  IconButton(
-                      onPressed: () {
-                        sendMessage(_controller.text);
-                        _controller.clear();
-                      },
-                      icon: Icon(Icons.send))
-                ],
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/chatbot_image.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    Expanded(child: MessagesScreen(messages: messages)),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                      color: Colors.black26,
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: TextField(
+                            controller: _controller,
+                            decoration: new InputDecoration.collapsed(
+                              hintText: 'Start typing your Complaint...',
+                              fillColor: Colors.white,
+                            ),
+                            style: TextStyle(color: Colors.white),
+                          )),
+                          IconButton(
+                              onPressed: () {
+                                sendMessage(_controller.text);
+                                _controller.clear();
+                              },
+                              icon: Icon(Icons.send))
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            )
-          ],
-        ),
+             BlocProvider(
+              create: (_) => MessageCubit(APIMessageRepository()),
+              child: UserMessageScreen())
+        ],
       ),
-    );
+    ),);
   }
 
   sendMessage(String text) async {
