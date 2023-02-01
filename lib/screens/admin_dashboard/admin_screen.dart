@@ -1,4 +1,5 @@
 import 'package:chatbot/model/complaint_model.dart';
+import 'package:chatbot/screens/admin_dashboard/admin_call_screen.dart';
 import 'package:chatbot/screens/admin_dashboard/admin_message_screen.dart';
 import 'package:chatbot/screens/admin_login/SignInScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,10 +31,10 @@ class _AdminScreenState extends State<AdminScreen> {
   }
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child:Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Complaints')),
+        title: Center(child: Text('Complaints',style: TextStyle(fontSize: 20),)),
         actions: <Widget>[
           IconButton(
               onPressed: () {
@@ -46,6 +47,7 @@ class _AdminScreenState extends State<AdminScreen> {
         bottom: const TabBar(tabs: [
           Tab(icon: Icon(Icons.home),),
           Tab(icon: Icon(Icons.message),),
+          Tab(icon: Icon(Icons.call),)
         ]),
       ),
       body: TabBarView(children: [
@@ -75,6 +77,7 @@ class _AdminScreenState extends State<AdminScreen> {
                   ),
               ),
             AdminMessageScreen(),
+            AdminCallScreen(),
        ]),
       ),
     );
