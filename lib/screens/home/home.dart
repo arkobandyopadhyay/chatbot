@@ -2,6 +2,7 @@ import 'package:chatbot/core/utils/shared.dart';
 import 'package:chatbot/screens/chatbot/Messages.dart';
 import 'package:chatbot/screens/home/user_message_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -163,6 +164,16 @@ class _HomeState extends State<Home> {
 
   Future<void> _onClick() async {
     UserSimplePreferences.erase();
+    
+    try {
+      await Future.wait([
+        FirebaseAuth.instance.signOut(),
+        
+      ]);
+    } catch(e){
+      print(e);
+    }
+  
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text("Logged Out Successfuly")));
     Navigator.of(context).pushReplacement(MaterialPageRoute(
