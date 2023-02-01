@@ -1,5 +1,6 @@
 import 'package:chatbot/core/utils/shared.dart';
 import 'package:chatbot/screens/chatbot/Messages.dart';
+import 'package:chatbot/screens/home/user_message_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
@@ -34,7 +35,9 @@ class _HomeState extends State<Home> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
       appBar: AppBar(
         title: Text('AI ChatBot'),
         actions: <Widget>[
@@ -48,6 +51,10 @@ class _HomeState extends State<Home> {
             },
           ),
         ],
+        bottom: const TabBar(tabs: [
+          Tab(icon: Icon(Icons.home),),
+          Tab(icon: Icon(Icons.message),),
+        ]),
       ),
       drawer: Drawer(
         child: SingleChildScrollView(
@@ -63,43 +70,48 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/chatbot_image.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          children: [
-            Expanded(child: MessagesScreen(messages: messages)),
+      body: TabBarView(
+        children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              color: Colors.black26,
-              child: Row(
-                children: [
-                  Expanded(
-                      child: TextField(
-                    controller: _controller,
-                    decoration: new InputDecoration.collapsed(
-                      hintText: 'Start typing your Complaint...',
-                      fillColor: Colors.white,
-                    ),
-                    style: TextStyle(color: Colors.white),
-                  )),
-                  IconButton(
-                      onPressed: () {
-                        sendMessage(_controller.text);
-                        _controller.clear();
-                      },
-                      icon: Icon(Icons.send))
-                ],
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/chatbot_image.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    Expanded(child: MessagesScreen(messages: messages)),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                      color: Colors.black26,
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: TextField(
+                            controller: _controller,
+                            decoration: new InputDecoration.collapsed(
+                              hintText: 'Start typing your Complaint...',
+                              fillColor: Colors.white,
+                            ),
+                            style: TextStyle(color: Colors.white),
+                          )),
+                          IconButton(
+                              onPressed: () {
+                                sendMessage(_controller.text);
+                                _controller.clear();
+                              },
+                              icon: Icon(Icons.send))
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            )
-          ],
-        ),
+              UserMessageScreen(),
+        ],
       ),
-    );
+    ),);
   }
 
   sendMessage(String text) async {

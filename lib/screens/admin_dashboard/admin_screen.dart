@@ -1,4 +1,5 @@
 import 'package:chatbot/model/complaint_model.dart';
+import 'package:chatbot/screens/admin_dashboard/admin_message_screen.dart';
 import 'package:chatbot/screens/admin_login/SignInScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,9 @@ class _AdminScreenState extends State<AdminScreen> {
     
   }
   Widget build(BuildContext context) {
-    return Scaffold(
+    return DefaultTabController(
+      length: 2,
+      child:Scaffold(
       appBar: AppBar(
         title: Center(child: Text('Complaints')),
         actions: <Widget>[
@@ -40,37 +43,41 @@ class _AdminScreenState extends State<AdminScreen> {
               },
               icon: Icon(Icons.logout))
         ],
+        bottom: const TabBar(tabs: [
+          Tab(icon: Icon(Icons.home),),
+          Tab(icon: Icon(Icons.message),),
+        ]),
       ),
-       body: RefreshIndicator(
-         onRefresh: ()async {
-           setState(() {
-             complaintList.clear();
-             print(complaintList);
-             _getAllComplaints(context);
-           });
-           
-           },
-         child: Container(
-            height: MediaQuery.of(context).size.height,
-            child: BlocBuilder<AdminCubit, AdminState>(
-              builder: (context, state) {
-                if (state is AdminInitial)
-                  return _buildLoading(context);
-                else if (state is AdminSuccess)
-                  return _buildSuccess(context, state.AdminList);
-                else if (state is AdminLoading)
-                  return _buildLoading(context);
-                else
-                  return Text("something went wrong");
-              },
-            ),
-          ),
-       ),
-        );
-   
-  
-    
-   
+      body: TabBarView(children: [
+            RefreshIndicator(
+                onRefresh: ()async {
+                  setState(() {
+                    complaintList.clear();
+                    print(complaintList);
+                    _getAllComplaints(context);
+                  });
+                  
+                  },
+                child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    child: BlocBuilder<AdminCubit, AdminState>(
+                      builder: (context, state) {
+                        if (state is AdminInitial)
+                          return _buildLoading(context);
+                        else if (state is AdminSuccess)
+                          return _buildSuccess(context, state.AdminList);
+                        else if (state is AdminLoading)
+                          return _buildLoading(context);
+                        else
+                          return Text("something went wrong");
+                      },
+                    ),
+                  ),
+              ),
+            AdminMessageScreen(),
+       ]),
+      ),
+    );
   }
   Widget _buildSuccess(BuildContext context, List<Item> ComplaintList) {
     double top = MediaQuery.of(context).viewInsets.top;
