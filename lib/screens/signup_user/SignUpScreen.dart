@@ -56,7 +56,7 @@ class SignupScreen extends StatelessWidget {
 
   Widget _buildInitial(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xffe8ebed),
+        backgroundColor: Colors.black54,
         body: SingleChildScrollView(
           child: Container(
             height: MediaQuery.of(context).size.height - 70,
@@ -64,16 +64,16 @@ class SignupScreen extends StatelessWidget {
             child: Container(
                 padding: const EdgeInsets.all(30),
                 child: Column(mainAxisSize: MainAxisSize.min, children: [
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 25),
                   Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Colors.black),
-                        color: const Color(0xffe1e2e3),
+                        color: Colors.grey,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
+                            color: Colors.white.withOpacity(0.28),
                             spreadRadius: 5,
                             blurRadius: 7,
                             offset: const Offset(0, 3),
@@ -84,6 +84,7 @@ class SignupScreen extends StatelessWidget {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
+                            const SizedBox(height: 20,),
                             Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 3),
@@ -250,36 +251,30 @@ class SignupScreen extends StatelessWidget {
                             const SizedBox(
                               height: 20,
                             ),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: CustomMainButton(
+                                      color: Colors.deepPurpleAccent,
+                                      isLoading: false,
+                                      onPressed: () {
+                                        _signup(context);
+                                      },
+                                      child: const Text(
+                                        "Sign-Up",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            letterSpacing: 0.6,
+                                            color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                           ]),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Align(
-                        alignment: Alignment.center,
-                        child: CustomMainButton(
-                          color: Colors.deepPurpleAccent,
-                          isLoading: false,
-                          onPressed: () {
-                            _signup(context);
-                          },
-                          child: const Text(
-                            "Sign-Up",
-                            style: TextStyle(
-                                fontSize: 15,
-                                letterSpacing: 0.6,
-                                color: Colors.black),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
                   ),
                 ])),
           ),

@@ -21,6 +21,8 @@ import 'drawer/cubit/drawer_cubit.dart';
 import 'drawer_header.dart';
 import 'messages/cubit/messages_cubit.dart';
 import 'messages/message_repository.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:avatar_glow/avatar_glow.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -36,12 +38,18 @@ class _HomeState extends State<Home>   {
   bool check = false;
 
   List<Map<String, dynamic>> messages = [];
+
+  // late stt.SpeechToText _speech;
+  // bool _isListening = false;
+  // late String _text;
+  // double _confidence = 1.0;
+
   @override
   void initState() {
     DialogFlowtter.fromFile().then((instance) => dialogFlowtter = instance);
+    // _speech = stt.SpeechToText();
     super.initState();
   }
-
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
@@ -90,12 +98,12 @@ class _HomeState extends State<Home>   {
           // controller: _tabController,
           children: [
             Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/chatbot_image.jpg"),
-                  fit: BoxFit.cover,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/chatbot_image.jpg"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
               child: Column(
                 children: [
                   Expanded(child: MessagesScreen(messages: messages)),
@@ -169,7 +177,7 @@ class _HomeState extends State<Home>   {
           ],
         ),
       ),
-    );
+    ),);
   }
 
   sendMessage(String text) async {
@@ -262,36 +270,5 @@ class _HomeState extends State<Home>   {
           create: (_) => LoginAdminCubit(APILoginAdminRepository()),
           child: SignInScreen()),
     ));
-  }
-
-  void postMessage(String token, String body, String title) async {
-    try {
-      await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
-          headers: <String, String>{
-            'Content-Type': 'application/json',
-            'Authorization':
-                'key=AAAAOXoAFro:APA91bFTNdTgFRQMLmuEBSG0Q2gyfsUqgASJfm0mZiNKx_tTVrvVLqGKZDkuxunSN5VrK-VQC-_kI12HqYSqpIlM0RxRBSnhvlvub4fuE0mNzGKbNm8gM5E7USfHI4LHfnsH4WimGNXU',
-          },
-          body: jsonEncode(
-            <String, dynamic>{
-              'priority': 'high',
-              'data': <String, dynamic>{
-                'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-                'status': 'done',
-                'body': body,
-                'title': title,
-              },
-              'notification': <String, dynamic>{
-                'title': title,
-                'body': body,
-                'android_channel_id': 'ChatBot',
-              },
-              'to': token,
-            },
-          ));
-    } catch (e) {
-      print(e);
-      print("error");
-    }
   }
 }

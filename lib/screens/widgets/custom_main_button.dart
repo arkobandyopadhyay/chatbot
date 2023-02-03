@@ -23,7 +23,10 @@ class CustomMainButton extends StatelessWidget {
           fixedSize: Size(
             screenSize.width * 0.6, 
             40,
-          )),
+          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shadowColor: Colors.black,
+      ),
       onPressed: onPressed,
       child: !isLoading
           ? child
