@@ -5,6 +5,7 @@ import 'package:chatbot/screens/widgets/card_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../core/utils/errors.dart';
 import '../widgets/complaint_list_widget.dart';
@@ -103,7 +104,9 @@ class _HeaderDrawerState extends State<HeaderDrawer> {
 
   Widget _buildLoading(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Center(child: CircularProgressIndicator());
+    return Center(child: LottieBuilder.network("https://assets6.lottiefiles.com/packages/lf20_p8bfn5to.json",width: 100,));
+    return Center(child: LottieBuilder.network("https://assets6.lottiefiles.com/packages/lf20_p8bfn5to.json",width: 100,));
+   
   }
 
   void _getAllComplaints(BuildContext context) {

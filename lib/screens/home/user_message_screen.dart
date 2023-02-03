@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../core/utils/errors.dart';
 import '../../core/utils/local_notification_service.dart';
@@ -125,7 +126,7 @@ class _UserMessageScreenState extends State<UserMessageScreen> {
 
   Widget _buildLoading(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Center(child: CircularProgressIndicator());
+    return Center(child: LottieBuilder.network("https://assets6.lottiefiles.com/packages/lf20_p8bfn5to.json",width: 100,));
   }
 
    void _getAllMessages(BuildContext context) {

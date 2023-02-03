@@ -2,6 +2,7 @@ import 'package:chatbot/screens/login_user/SignInScreen2.dart';
 import 'package:chatbot/screens/signup_user/cubit/signup_user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 import '../home/home.dart';
 import '../login_user/cubit/login_user_cubit.dart';
@@ -286,7 +287,7 @@ class SignupScreen extends StatelessWidget {
   }
 
   Widget _buildLoading(BuildContext context) {
-    return Center(child: CircularProgressIndicator());
+    return Center(child: LottieBuilder.network("https://assets2.lottiefiles.com/private_files/lf30_lhLisE.json",width: 100,));
   }
 
   void _signup(BuildContext context) {

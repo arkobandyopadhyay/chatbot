@@ -6,6 +6,7 @@ import 'package:chatbot/screens/home/home.dart';
 import 'package:chatbot/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import '../signup_user/cubit/signup_user_cubit.dart';
 import '../signup_user/signup_repository.dart';
 
@@ -243,7 +244,7 @@ class _SignInScreen2State extends State<SignInScreen2> {
   }
 
   Widget _buildLoading(BuildContext context) {
-    return Center(child: CircularProgressIndicator());
+    return Center(child: LottieBuilder.network("https://assets2.lottiefiles.com/private_files/lf30_lhLisE.json",width: 100,));
   }
 
   void _login(BuildContext context) {

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:chatbot/core/utils/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import '../admin_login/SignInScreen.dart';
 import '../admin_login/cubit/admin_login_cubit.dart';
 import '../admin_login/login_admin_repository.dart';
@@ -59,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen> {
             },
             builder: (context, state) {
               if (state is SplashSuccess || state is SplashLoading) {
-                return Center(child: CircularProgressIndicator());
+                return Center(child: LottieBuilder.network("https://assets2.lottiefiles.com/private_files/lf30_lhLisE.json",width: 100,));
               } else {
                 return Center(
                   child: Text("Check your internet connection and try again"),

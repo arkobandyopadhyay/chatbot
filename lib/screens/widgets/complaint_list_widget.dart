@@ -19,7 +19,7 @@ class _ItemWidgetState extends State<ItemWidget> {
     return Container(
       height: 100,
       child: Card(
-        elevation: 10,
+        elevation: 20,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
@@ -28,23 +28,43 @@ class _ItemWidgetState extends State<ItemWidget> {
             onTap: () {
               print("${widget.item.type} pressed");
             },
-            leading: CircleAvatar(
-              backgroundImage: AssetImage(widget.item.image),
+            leading: Column(
+              children: [
+                Expanded(
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage(widget.item.image),
+                  ),
+                ),
+                // Text(widget.item.time.substring(0,10))
+              ],
             ),
             title: Text(widget.item.type),
             subtitle: Text("Room No: ${widget.item.roomno}"),
-            trailing: Checkbox(
-                value: isChecked,
-                onChanged: (bool? value) async{
-
-            
-            await FirebaseFirestore.instance.collection("complaints").doc(widget.item.time).update({"isDone1":value});
-
-                  // widget.item.isDone1=true;
-                  setState(() {
-                    isChecked = value!;
-                  });
-                }),
+            trailing: Column(
+              children: [
+                Expanded(
+                  child: Container(
+                
+                    child: Checkbox(
+                        splashRadius: 10,
+                        shape: CircleBorder(),
+                        value: isChecked,
+                        onChanged: (bool? value) async{
+                            
+                    
+                    await FirebaseFirestore.instance.collection("complaints").doc(widget.item.time).update({"isDone1":value});
+                            
+                          // widget.item.isDone1=true;
+                          setState(() {
+                            isChecked = value!;
+                          });
+                        }),
+                  ),
+                ),
+                SizedBox(height: 5,),
+                Text(widget.item.time.substring(0,10))
+              ],
+            ),
           ),
         ),
       ),

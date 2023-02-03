@@ -29,10 +29,10 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
+class _HomeState extends State<Home>   {
   late DialogFlowtter dialogFlowtter;
   final TextEditingController _controller = TextEditingController();
-  late TabController _tabController = TabController(length: 3, vsync: this);
+  // late TabController _tabController = TabController(length: 4, vsync: this);
   bool check = false;
 
   List<Map<String, dynamic>> messages = [];
@@ -44,14 +44,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('AI ChatBot'),
+          // backgroundColor: Colors.purpleAccent,
+          title: Text('Hostel Hubby'),
           actions: <Widget>[
             IconButton(
               icon: const Icon(
-                Icons.logout_rounded,
+                Icons.logout,
                 color: Colors.white,
               ),
               onPressed: () {
@@ -65,6 +66,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ),
             Tab(
               icon: Icon(Icons.message),
+            ),
+            Tab(
+              icon: Icon(Icons.call),
             ),
           ]),
         ),
@@ -83,7 +87,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           ),
         ),
         body: TabBarView(
-          controller: _tabController,
+          // controller: _tabController,
           children: [
             Container(
               decoration: const BoxDecoration(
@@ -118,7 +122,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                 final CollectionReference<Map<String, dynamic>>
                                     _collectionReference = FirebaseFirestore
                                         .instance
-                                        .collection("custom");
+                                        .collection("complaints");
 
                                 String id = DateTime.now().toString();
                                 await _collectionReference.doc(id).set({
@@ -127,7 +131,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                   "time": id,
                                   "isDone1": false,
                                   "isDone2": false,
-                                  // "image": "assets/" + textvalue + ".jpg"
+                                  "image": "assets/default.png"
                                 });
                                 await FirebaseFirestore.instance
                                     .collection("tokens")
