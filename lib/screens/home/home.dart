@@ -31,10 +31,10 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
+class _HomeState extends State<Home>   {
   late DialogFlowtter dialogFlowtter;
   final TextEditingController _controller = TextEditingController();
-  late TabController _tabController = TabController(length: 3, vsync: this);
+  // late TabController _tabController = TabController(length: 4, vsync: this);
   bool check = false;
 
   List<Map<String, dynamic>> messages = [];
@@ -52,14 +52,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('AI ChatBot'),
+          // backgroundColor: Colors.purpleAccent,
+          title: Text('Hostel Hubby'),
           actions: <Widget>[
             IconButton(
               icon: const Icon(
-                Icons.logout_rounded,
+                Icons.logout,
                 color: Colors.white,
               ),
               onPressed: () {
@@ -73,6 +74,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ),
             Tab(
               icon: Icon(Icons.message),
+            ),
+            Tab(
+              icon: Icon(Icons.call),
             ),
           ]),
         ),
@@ -91,7 +95,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           ),
         ),
         body: TabBarView(
-          controller: _tabController,
+          // controller: _tabController,
           children: [
             Container(
                 decoration: const BoxDecoration(
@@ -100,45 +104,78 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     fit: BoxFit.cover,
                   ),
                 ),
-                child: Column(
-                  children: [
-                    Expanded(child: MessagesScreen(messages: messages)),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                      color: Colors.black26,
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: TextField(
-                            controller: _controller,
-                            decoration: new InputDecoration.collapsed(
-                              hintText: 'Start typing your Complaint...',
-                              fillColor: Colors.white,
-                            ),
-                            style: TextStyle(color: Colors.white),
-                          )),
-                          IconButton(
-                              onPressed: () {
-                                sendMessage(_controller.text);
-                                _controller.clear();
-                              },
-                              icon: Icon(Icons.send))
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+              child: Column(
+                children: [
+                  Expanded(child: MessagesScreen(messages: messages)),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                    color: Colors.black26,
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: TextField(
+                          controller: _controller,
+                          decoration: new InputDecoration.collapsed(
+                            hintText: 'Start typing your Complaint...',
+                            fillColor: Colors.white,
+                          ),
+                          style: TextStyle(color: Colors.white),
+                        )),
+                        IconButton(
+                            onPressed: () async {
+                              if (check) {
+                                setState(() {
+                                  check = false;
+                                });
+                                final CollectionReference<Map<String, dynamic>>
+                                    _collectionReference = FirebaseFirestore
+                                        .instance
+                                        .collection("complaints");
+
+                                String id = DateTime.now().toString();
+                                await _collectionReference.doc(id).set({
+                                  "room": UserSimplePreferences.getRoom(),
+                                  "type": _controller.text,
+                                  "time": id,
+                                  "isDone1": false,
+                                  "isDone2": false,
+                                  "image": "assets/default.png"
+                                });
+                                await FirebaseFirestore.instance
+                                    .collection("tokens")
+                                    .get()
+                                    .then((value) {
+                                  value.docs.forEach((element) {
+                                    postMessage(
+                                        element.get("token"),
+                                        _controller.text.toString(),
+                                        "COMPLAINT");
+                                  });
+                                });
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  content: Text("Complaint Registered"),
+                                  backgroundColor: Colors.green,
+                                ));
+                              }
+                              sendMessage(_controller.text);
+                              _controller.clear();
+                            },
+                            icon: Icon(Icons.send))
+                      ],
+                    ),
+                  )
+                ],
               ),
-// <<<<<<< HEAD
-//               UserMessageScreen(),
-//               UserCallScreen(),
-// =======
-             BlocProvider(
-              create: (_) => MessageCubit(APIMessageRepository()),
-              child: UserMessageScreen()),
-// >>>>>>> fbd0970e98c90977037bda823214cb1b99b79437
-           UserCallScreen(),
-        ],
+            ),
+            Container(
+              child: BlocProvider(
+                  create: (_) => MessageCubit(APIMessageRepository()),
+                  child: UserMessageScreen()),
+            ),
+            Container(child: UserCallScreen()),
+          ],
+        ),
       ),
     ),);
   }

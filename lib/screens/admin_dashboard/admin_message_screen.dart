@@ -159,6 +159,7 @@ class _AdminMessageScreenState extends State<AdminMessageScreen> {
         await _collectionReference.doc(id).set({
           "type": titleController.text,
           "desc": descController.text,
+          "time":id
         });
 
         await FirebaseFirestore.instance.collection("tokens").get().then((value) {
