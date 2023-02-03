@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:chatbot/core/utils/shared.dart';
 import 'package:chatbot/screens/chatbot/Messages.dart';
 import 'package:chatbot/screens/home/user_message_screen.dart';
+import 'package:chatbot/screens/home/user_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -112,9 +113,15 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
+// <<<<<<< HEAD
+//               UserMessageScreen(),
+//               UserCallScreen(),
+// =======
              BlocProvider(
               create: (_) => MessageCubit(APIMessageRepository()),
-              child: UserMessageScreen())
+              child: UserMessageScreen()),
+// >>>>>>> fbd0970e98c90977037bda823214cb1b99b79437
+           UserCallScreen(),
         ],
       ),
     ),);
