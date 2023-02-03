@@ -30,11 +30,12 @@ class _SignInScreenState extends State<SignInScreen> {
           if (state is LoginAdminSuccess) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text("Login Successful")));
-           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>BlocProvider(
-              create: (_) => AdminCubit(APIComplaintRepository()),
-              child: AdminScreen()),));
-            }
-           else if (state is LoginAdminError) {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => BlocProvider(
+                  create: (_) => AdminCubit(APIComplaintRepository()),
+                  child: AdminScreen()),
+            ));
+          } else if (state is LoginAdminError) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text("error")));
           }
@@ -56,7 +57,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget _buildInitial(BuildContext context) {
     Size screenSize = Utils().getScreenSize();
     return Scaffold(
-        backgroundColor: const Color(0xffe8ebed),
+        backgroundColor: Colors.black54,
         body: SingleChildScrollView(
           child: Container(
             height: screenSize
@@ -68,28 +69,25 @@ class _SignInScreenState extends State<SignInScreen> {
                   Stack(
                     children: <Widget>[
                       Container(
-                        height: 190,
-                        width: 700,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                        ),
+                        height: MediaQuery.of(context).size.height*0.35,
+                        width: MediaQuery.of(context).size.width,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Image.asset("assets/admin_login_image.jpg"),
+                          child: Image.asset("assets/chatbot image 2.png"),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 35),
                   Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Colors.black),
-                        color: const Color(0xffe1e2e3),
+                        color: Colors.grey,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
+                            color: Colors.white.withOpacity(0.28),
                             spreadRadius: 5,
                             blurRadius: 7,
                             offset: const Offset(0, 3),
@@ -123,11 +121,14 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                               child: TextFormField(
                                 controller: emailController,
-                                validator: (String? email) => email!.isEmpty ? "" : null,
-                                style: TextStyle(fontSize: 15,color: Colors.black),
+                                validator: (String? email) =>
+                                    email!.isEmpty ? "" : null,
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black),
                                 decoration: const InputDecoration(
                                   hintText: "Email",
-                                  hintStyle: TextStyle(fontSize: 15,color: Colors.black38),
+                                  hintStyle: TextStyle(
+                                      fontSize: 15, color: Colors.black38),
                                   border: InputBorder.none,
                                   prefixIcon: Icon(
                                     Icons.email,
@@ -147,47 +148,48 @@ class _SignInScreenState extends State<SignInScreen> {
                                 border: Border.all(color: Colors.black),
                               ),
                               child: TextFormField(
-                                style: TextStyle(fontSize: 15,color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black),
                                 controller: passwordController,
-                                validator: (String? email) => email!.isEmpty ? "" : null,
+                                validator: (String? email) =>
+                                    email!.isEmpty ? "" : null,
                                 obscureText: true,
                                 decoration: const InputDecoration(
                                   hintText: "Password",
-                                  hintStyle: TextStyle(fontSize: 15,color: Colors.black38),
+                                  hintStyle: TextStyle(
+                                      fontSize: 15, color: Colors.black38),
                                   border: InputBorder.none,
                                   prefixIcon:
                                       Icon(Icons.vpn_key, color: Colors.black),
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 15),
+                            Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: CustomMainButton(
+                                  color: Colors.deepPurpleAccent,
+                                  isLoading: false,
+                                  onPressed: () => _login(context),
+                                  child: const Text(
+                                    "Sign-In",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        letterSpacing: 0.6,
+                                        color: Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                           ]),
                     ),
                   ),
                   const SizedBox(
-                    height: 50,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Align(
-                        alignment: Alignment.center,
-                        child: CustomMainButton(
-                          color: Colors.deepPurpleAccent,
-                          isLoading: false,
-                          onPressed: () => _login(context),
-                          child: const Text(
-                            "Sign-In",
-                            style: TextStyle(
-                                fontSize: 15,
-                                letterSpacing: 0.6,
-                                color: Colors.black),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
+                    height: 40,
                   ),
                   Row(
                     children: [
@@ -219,13 +221,13 @@ class _SignInScreenState extends State<SignInScreen> {
                       isLoading: false,
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                              builder: ((context) => BlocProvider(
-                                  create: (_) =>
-                                      LoginUserCubit(APILoginRepository()),
-                                  child: SignInScreen2()))));
+                            builder: ((context) => BlocProvider(
+                                create: (_) =>
+                                    LoginUserCubit(APILoginRepository()),
+                                child: SignInScreen2()))));
                       },
                       child: const Text(
-                        "Hostel Inmates Login",
+                        "Student Login",
                         style: TextStyle(
                             fontSize: 15,
                             letterSpacing: 0.6,
@@ -242,9 +244,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
   void _login(BuildContext context) {
     final cubit = context.read<LoginAdminCubit>();
-    if (_formKey.currentState!.validate())
-      print(emailController.text);
-      print(passwordController.text);
-      cubit.login(emailController.text, passwordController.text);
+    if (_formKey.currentState!.validate()) print(emailController.text);
+    print(passwordController.text);
+    cubit.login(emailController.text, passwordController.text);
   }
 }

@@ -18,6 +18,8 @@ import 'drawer/cubit/drawer_cubit.dart';
 import 'drawer_header.dart';
 import 'messages/cubit/messages_cubit.dart';
 import 'messages/message_repository.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:avatar_glow/avatar_glow.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -30,12 +32,18 @@ class _HomeState extends State<Home> {
   late DialogFlowtter dialogFlowtter;
   final TextEditingController _controller = TextEditingController();
   List<Map<String, dynamic>> messages = [];
+
+  // late stt.SpeechToText _speech;
+  // bool _isListening = false;
+  // late String _text;
+  // double _confidence = 1.0;
+
   @override
   void initState() {
     DialogFlowtter.fromFile().then((instance) => dialogFlowtter = instance);
+    // _speech = stt.SpeechToText();
     super.initState();
   }
-
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
@@ -103,7 +111,8 @@ class _HomeState extends State<Home> {
                                 sendMessage(_controller.text);
                                 _controller.clear();
                               },
-                              icon: Icon(Icons.send))
+                              icon: Icon(Icons.send)),
+                          // IconButton(onPressed: (){}, icon: Icon(_isListening ? Icons.mic : Icons.mic_none)),
                         ],
                       ),
                     )
@@ -191,4 +200,27 @@ class _HomeState extends State<Home> {
           child: SignInScreen()),
     ));
   }
+//   void _listen() async {
+//     if (!_isListening) {
+//       bool available = await _speech.initialize(
+//         onStatus: (val) => print('onStatus: $val'),
+//         onError: (val) => print('onError: $val'),
+//       );
+//       if (available) {
+//         setState(() => _isListening = true);
+//         _speech.listen(
+//           onResult: (val) => setState(() {
+//             _text = val.recognizedWords;
+//             if (val.hasConfidenceRating && val.confidence > 0) {
+//               _confidence = val.confidence;
+//             }
+//           }),
+//         );
+//       }
+//     } else {
+//       setState(() => _isListening = false);
+//       _speech.stop();
+//     }
+//   }
+// }
 }

@@ -56,7 +56,7 @@ class _SignInScreen2State extends State<SignInScreen2> {
   Widget _buildInitial(BuildContext context) {
     Size screenSize = Utils().getScreenSize();
     return Scaffold(
-        backgroundColor: const Color(0xffe8ebed),
+        backgroundColor: Colors.black54,
         body: SingleChildScrollView(
           child: Container(
             height: screenSize
@@ -68,14 +68,11 @@ class _SignInScreen2State extends State<SignInScreen2> {
                   Stack(
                     children: <Widget>[
                       Container(
-                        height: 190,
-                        width: 700,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                        ),
+                        height:MediaQuery.of(context).size.height*0.35,
+                        width: MediaQuery.of(context).size.width,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Image.asset("assets/hostel_boys_images.jpg"),
+                          child: Image.asset("assets/chatbot image.png"),
                         ),
                       ),
                     ],
@@ -86,10 +83,10 @@ class _SignInScreen2State extends State<SignInScreen2> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Colors.black),
-                        color: const Color(0xffe1e2e3),
+                        color: Colors.grey,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
+                            color: Colors.white.withOpacity(0.28),
                             spreadRadius: 5,
                             blurRadius: 7,
                             offset: const Offset(0, 3),
@@ -166,34 +163,32 @@ class _SignInScreen2State extends State<SignInScreen2> {
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 15),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: CustomMainButton(
+                                      color: Colors.deepPurpleAccent,
+                                      isLoading: false,
+                                      onPressed: () => _login(context),
+                                      child: const Text(
+                                        "Sign-In",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            letterSpacing: 0.6,
+                                            color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                           ]),
                     ),
                   ),
                   const SizedBox(
                     height: 50,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Align(
-                        alignment: Alignment.center,
-                        child: CustomMainButton(
-                          color: Colors.deepPurpleAccent,
-                          isLoading: false,
-                          onPressed: () => _login(context),
-                          child: const Text(
-                            "Sign-In",
-                            style: TextStyle(
-                                fontSize: 15,
-                                letterSpacing: 0.6,
-                                color: Colors.black),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
                   ),
                   Row(
                     children: [
