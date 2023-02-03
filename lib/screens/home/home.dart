@@ -21,9 +21,6 @@ import 'drawer/cubit/drawer_cubit.dart';
 import 'drawer_header.dart';
 import 'messages/cubit/messages_cubit.dart';
 import 'messages/message_repository.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'package:avatar_glow/avatar_glow.dart';
-
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -177,7 +174,7 @@ class _HomeState extends State<Home>   {
           ],
         ),
       ),
-    ),);
+    );
   }
 
   sendMessage(String text) async {
@@ -271,4 +268,7 @@ class _HomeState extends State<Home>   {
           child: SignInScreen()),
     ));
   }
+}
+
+void postMessage(param0, String textvalue, String s) {
 }
