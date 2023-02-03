@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:chatbot/core/utils/shared.dart';
 import 'package:chatbot/screens/chatbot/Messages.dart';
 import 'package:chatbot/screens/home/user_message_screen.dart';
@@ -6,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -153,6 +156,11 @@ class _HomeState extends State<Home> {
           "isDone2": false,
           "image": "assets/" + textvalue + ".jpg"
         });
+        await FirebaseFirestore.instance.collection("tokens").get().then((value) {
+          value.docs.forEach((element) {postMessage(element.get("token"), textvalue, "COMPLAINT");});
+        });
+        ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text("Message Sent")));
       }
       setState(() {
         addMessage(response.message!);
@@ -183,5 +191,38 @@ class _HomeState extends State<Home> {
           create: (_) => LoginAdminCubit(APILoginAdminRepository()),
           child: SignInScreen()),
     ));
+  }
+  void postMessage(String token,String body,String title)async{
+
+    try{
+      await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+      headers: <String,String>{
+        'Content-Type':'application/json',
+        'Authorization':'key=AAAAOXoAFro:APA91bFTNdTgFRQMLmuEBSG0Q2gyfsUqgASJfm0mZiNKx_tTVrvVLqGKZDkuxunSN5VrK-VQC-_kI12HqYSqpIlM0RxRBSnhvlvub4fuE0mNzGKbNm8gM5E7USfHI4LHfnsH4WimGNXU',
+        },
+        body:jsonEncode(
+          <String,dynamic>{
+            'priority':'high',
+            'data':<String,dynamic>{
+              'click_action':'FLUTTER_NOTIFICATION_CLICK',
+              'status':'done',
+              'body':body,
+              'title':title,
+            },
+            'notification':<String,dynamic>{
+              
+              'title':title,
+              'body':body,
+              'android_channel_id':'ChatBot',
+            },
+            'to':token,
+          },
+        )
+      );
+    }catch(e){
+      print(e);
+      print("error");
+    }
+
   }
 }
