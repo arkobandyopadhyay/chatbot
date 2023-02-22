@@ -1,16 +1,17 @@
-# chatbot
+# Problem Statement.
 
-A new Flutter project.
+Hostel inmates are well aware of the various problems one might face in hostels, which include electricity issues, broken furniture, water issues, etc. In order to address these issues, design an AI-enabled chatbot which is capable of providing assistance and support to the hostel inmates. Such a chatbot would help to improve and ease the complaint registration process and provide quick access to all the related and relevant information. 
 
-## Getting Started
+## What our Model does?
 
-This project is a starting point for a Flutter application.
+1). Utilisation of Dialog flow for natural language processing and Machine learning techniques to understand and interpret student queries and provide appropriate responses in a short period of time plus registering all the complaints given by students.
 
-A few resources to get you started if this is your first Flutter project:
+2). Students can get all the information coming from higher authorities like Warden , Caretaker etc. plus students can send information to higher authorities.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+3). Students can track their status of registered complaints plus students can call ambulance , fire brigade , caretaker through app.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4). Admins like Warden , caretaker etc can send information via SMS to all the hostel students plus admins can call electrician , room cleaner ,security guard through  our app.
+
+5). When a query is solved by an admin then admins can do mark it done and then Students can track their registered complaints status as work done.
+
+
